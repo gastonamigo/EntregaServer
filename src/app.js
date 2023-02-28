@@ -1,31 +1,15 @@
 import express from "express";
-import ProductManager from "./ProductManager.js";
-console.log(ProductManager);
+import productRouter from "./routes/products.router.js";
+// import cartsRouter from "./routes/carts.router.js";
 
-const manager = new ProductManager("../products.json");
+
 
 
 const app = express();
 
-app.get("/products", async (req, res) => {
-
-    const { limit } = req.query;
-
-    if (!limit) {
-        const products = await manager.getProducts();
-        res.send(products);
-    } else {
-        const products = await manager.getProducts();
-        const limited = products.splice(0, limit);
-        res.send(limited);
-    };
-});
-
-app.get("/products/:id", async (req, res) =>{
-    const productId = parseInt(req.params.id);
-    const prodFinal = await manager.getProductById(productId);
-    res.send(prodFinal);
-});
+app.use(express.static("./public"));
+app.use("/api/products", productRouter);
+// app.use("/api/carts", cartsRouter);
 
 
 
