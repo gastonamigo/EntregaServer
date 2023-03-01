@@ -1,29 +1,33 @@
 import { Router, json } from "express";
 import { manager } from "../app.js";
 
-
 const productRouter = Router();
 productRouter.use(json());
 
-productRouter.get("/products", async (req, res) => {
-
-    const { limit } = req.query;
-
+productRouter.get("/", async (req, res) => {
+  const { limit } = req.query;
+  try {
     if (!limit) {
-        const products = await manager.getProducts();
-        res.send(products);
+      const products = await manager.getProducts();
+      res.send({ status: "succes", playload: products });
     } else {
-        const products = await manager.getProducts();
-        const limited = products.splice(0, limit);
-        res.send(limited);
-    };
+      const products = await manager.getProducts();
+      const limited = products.splice(0, limit);
+      res.send({ status: "succes", playload: limited });
+    }
+  } catch (error) {
+    res.status(404).send({ status: "error", error: `{$error}` });
+  }
 });
 
-productRouter.get("/products/:id", async (req, res) =>{
-    const productId = parseInt(req.params.id);
-    const prodFinal = await manager.getProductById(productId);
-    res.send(prodFinal);
+productRouter.get("/:pid", async (req, res)=>{
+    try{
+        const {pid} = req.params;
+        const product = await manager.getProductById(parseInt(pid));
+        res.send({status: "succes", payload: product});
+    } catch(error) {
+        res.status(404).send({status: "error", error: `${error}`});
+    }
 });
-
 
 export default productRouter;

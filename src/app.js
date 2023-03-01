@@ -4,7 +4,7 @@ import productRouter from "./routes/products.router.js";
 // import cartsRouter from "./routes/carts.router.js";
 
 
-const manager = new ProductManager("./src/products.json");
+const manager = new ProductManager("./products.json");
 
 const app = express();
 app.use(json());

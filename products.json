@@ -6,7 +6,10 @@
         "price": 155000,
         "thumbnail": "../img/ender-3-V2-01.jpg",
         "code": "E01",
-        "stock": 15
+        "stock": 15,
+        "status": true,
+        "category": "FDM"
+
     },
     {
         "id": 2,
@@ -15,7 +18,9 @@
         "price": 145000,
         "thumbnail": "../img/ender2pro1.png",
         "code": "E02",
-        "stock": 15
+        "stock": 15,
+        "status": true,
+        "category": "FDM"
     },
     {
         "id": 3,
@@ -24,7 +29,9 @@
         "price": 195000,
         "thumbnail": "../img/creality-cr-10-smart-pro-1.jpg",
         "code": "E03",
-        "stock": 15
+        "stock": 15,
+        "status": true,
+        "category": "FDM"
     },
     {
         "id": 4,
@@ -33,7 +40,9 @@
         "price": 225000,
         "thumbnail": "../img/cr5pro1.jpg",
         "code": "E04",
-        "stock": 15
+        "stock": 15,
+        "status": true,
+        "category": "FDM"
     },
     {
         "id": 5,
@@ -42,6 +51,8 @@
         "price": 225000,
         "thumbnail": "../img/MonoX.jpg",
         "code": "E05",
-        "stock": 15
+        "stock": 15,
+        "status": true,
+        "category": "resina"
     }
 ]
