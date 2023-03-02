@@ -30,4 +30,39 @@ productRouter.get("/:pid", async (req, res)=>{
     }
 });
 
+productRouter.post("/", async(req, res)=>{
+    try{
+        const {title, description, price, thumbail=[], code, stock, status=true, category} = req.body;
+        await manager.addProduct(title, description, parseInt(price), thumbail, code, parseInt(stock), status, category);
+        res.send({status: "succes", payload: req.body});
+    }catch(error){
+        res.status(404).send({status:"error", error: `${error}`});
+
+    }
+});
+
+productRouter.put("/:pid", async (req, res)=>{
+    try{
+        const {pid} = req.params;
+        const id = parseInt(pid);
+        await manager.updateProduct(id, req.body);
+    
+        res.send({status: "succes", payload: await manager.getProductById(id)});
+    }catch(error){
+        res.status(404).send({status: "error", error: `${error}`});
+    }
+});
+
+productRouter.delete("/:pid", async(req, res)=>{
+    try{
+        const {pid} = req.params;
+        const id = parseInt(pid);
+        await manager.deleteProduct(id);
+
+        res.send({status: "succes", payload: "Producto eliminado"});
+    } catch(error){
+        res.status(404).send({status: "error", error: `${error}`});
+    };
+});
+
 export default productRouter;

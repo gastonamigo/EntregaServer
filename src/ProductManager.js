@@ -16,9 +16,9 @@ class ProductManager {
         } catch (e) {
             return [];
 
-        }
+        };
 
-    }
+    };
     //FILTRA Y OBTIENE EL PRODUCTO POR ID
     async getProductById(prodId) {
         const product = await this.getProducts();
@@ -65,6 +65,9 @@ class ProductManager {
         if (!productUpdated) {
             throw new Error("Product ID not found");//CHECKEA QUE EXISTA EL ID
         };
+        if (Object.keys(update).includes('id')){
+            throw new Error('No es posible modificar el ID de un producto.');
+        }
 
         if (Object.keys(update).includes('code')) {
             let checkCode = product.some(i => i.code === update.code);
@@ -101,17 +104,3 @@ export default ProductManager;
 
 
 
-// async function main() {
-    //   const manager = new ProductManager('../products.json');
-//       console.log(await manager.getProducts()); // []
-// await manager.addProduct("Ender 3 v2", "Impresora 3d v2", 155000, "../img/ender-3-V2-01.jpg", "E01", 15);
-// await manager.addProduct("Ender 2 pro", "Impresora 3d pro", 145000, "../img/ender2pro1.png", "E02", 15);
-// await manager.addProduct("Cr10 pro v2", "Impresora 3d cr10 V2", 195000, "../img/creality-cr-10-smart-pro-1.jpg", "E03", 15);
-// await manager.addProduct("Cr5 pro", "Impresora 3d cr5 pro", 225000, "../img/cr5pro1.jpg", "E04", 15);
-// await manager.addProduct("Photon mono x", "Impresora de resina Mono X 4K", 225000, "../img/MonoX.jpg", "E05", 15);
-//       await manager.deleteProduct(1);
-//       console.log(await manager.getProducts()); // []
-//       console.log(await manager.getProductById(0));
-//       console.log(await manager.getProductById(5));
-// };
-// main();
