@@ -26,7 +26,7 @@ class ProductManager {
         if (prod) {
             return prod;
         } else {
-            return [];
+            throw new Error('Not Found ID.');
         };
     };
     // AGREGA EL PRODUCTO 

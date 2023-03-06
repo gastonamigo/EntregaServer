@@ -1,5 +1,6 @@
 import { Router, json } from "express";
 import { manager } from "../app.js";
+import uploader from "../file-upload.js";
 
 const productRouter = Router();
 productRouter.use(json());
@@ -30,10 +31,14 @@ productRouter.get("/:pid", async (req, res)=>{
     }
 });
 
-productRouter.post("/", async(req, res)=>{
-    try{
-        const {title, description, price, thumbail=[], code, stock, status=true, category} = req.body;
-        await manager.addProduct(title, description, parseInt(price), thumbail, code, parseInt(stock), status, category);
+productRouter.post("/", uploader.single("file"), async(req, res)=>{
+    try{     
+        if(!req.file){
+            return res.status (400).send({ error: "required file not found"});
+        }   
+        const thumbnail = {thumbnails: req.file.path};
+        const {title, description, price, thumbails = thumbnail, code, stock, status=true, category} = req.body;
+        await manager.addProduct(title, description, parseInt(price), thumbails, code, parseInt(stock), status, category);
         res.send({status: "succes", payload: req.body});
     }catch(error){
         res.status(404).send({status:"error", error: `${error}`});

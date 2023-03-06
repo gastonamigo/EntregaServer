@@ -3,13 +3,25 @@ import ProductManager from "./ProductManager.js";
 import CartManager from "./CartManager.js";
 import productRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
+import { engine } from "express-handlebars";
+
 
 
 const manager = new ProductManager("./products.json");
 const cartManager = new CartManager("./carrito.json")
 const app = express();
-app.use(json());
 
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
+app.set("views", "./src/views");
+
+app.get("/", async(req, res)=>{
+    const product = await manager.getProducts();
+    console.log({product});
+    res.render("home", {product});
+});
+
+app.use(json());
 app.use(express.static("./public"));
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
