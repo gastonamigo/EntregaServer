@@ -17,8 +17,7 @@ app.set("views", "./src/views");
 
 app.get("/", async(req, res)=>{
     const product = await manager.getProducts();
-    console.log({product});
-    res.render("home", {product});
+    res.render("home", {layout: "main", product});
 });
 
 app.use(json());
