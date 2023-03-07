@@ -4,8 +4,9 @@ import CartManager from "./CartManager.js";
 import productRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import { engine } from "express-handlebars";
+import { Server } from 'socket.io';
 
-
+const PORT = 8080;
 
 const manager = new ProductManager("./products.json");
 const cartManager = new CartManager("./carrito.json")
@@ -28,7 +29,7 @@ app.use("/api/carts", cartsRouter);
 
 
 
-app.listen(8080, () => {
+const httpServer = app.listen(8080, () => {
     console.log("Server listening on port 8080");
 });
 export {manager,cartManager};
