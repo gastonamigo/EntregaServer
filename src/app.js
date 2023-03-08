@@ -5,13 +5,13 @@ import productRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import __dirname from "./utils.js";
 import { engine } from "express-handlebars";
-import { Server } from 'socket.io';
+import { Server } from "socket.io";
 import viewsRouter from "./routes/views-router.js";
 
 const PORT = 8080;
 
 const manager = new ProductManager("./products.json");
-const cartManager = new CartManager("./carrito.json")
+const cartManager = new CartManager("./carrito.json");
 const app = express();
 
 app.engine("handlebars", engine());
@@ -23,7 +23,7 @@ app.use(json());
 app.use(express.static(__dirname + "/../public"));
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
-app.use("/", viewsRouter)
+app.use("/", viewsRouter);
 
 const httpServer = app.listen(PORT, () => {
     console.log("Server listening on port 8080");
