@@ -39,6 +39,7 @@ productRouter.post("/", uploader.single("file"), async(req, res)=>{
         const thumbnail = {thumbnails: req.file.path};
         const {title, description, price, thumbails = thumbnail, code, stock, status=true, category} = req.body;
         await manager.addProduct(title, description, parseInt(price), thumbails, code, parseInt(stock), status, category);
+        req.io.emit("new-product", req.body);
         res.send({status: "succes", payload: req.body});
     }catch(error){
         res.status(404).send({status:"error", error: `${error}`});
@@ -51,6 +52,9 @@ productRouter.put("/:pid", async (req, res)=>{
         const {pid} = req.params;
         const id = parseInt(pid);
         await manager.updateProduct(id, req.body);
+
+        const products = await manager.getProducts();
+        req.io.emit("update-product", products);
     
         res.send({status: "succes", payload: await manager.getProductById(id)});
     }catch(error){
@@ -63,6 +67,10 @@ productRouter.delete("/:pid", async(req, res)=>{
         const {pid} = req.params;
         const id = parseInt(pid);
         await manager.deleteProduct(id);
+
+        const products = await manager.getProducts();
+        req.io.emit("delete-product", products);
+ 
 
         res.send({status: "succes", payload: "Producto eliminado"});
     } catch(error){
