@@ -18,7 +18,6 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
-
 app.use(json());
 app.use(express.static(__dirname + "/../public"));
 app.use("/api/products", productRouter);
@@ -26,22 +25,21 @@ app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
 
 const httpServer = app.listen(PORT, () => {
-    console.log("Server listening on port 8080");
+  console.log("Server listening on port 8080");
 });
-
 
 const io = new Server(httpServer);
 
-io.on("connection", (socket)=>{
-    console.log("New client connected.");
+io.on("connection", (socket) => {
+  console.log("New client connected.");
 });
 
-app.use((req,res,next)=>{
-    req.io = io;
-    next();
+app.use((req, res, next) => {
+  req.io = io;
+  next();
 });
 
-export {manager,cartManager};
+export { manager, cartManager };
 
 // app.get("/", async(req, res)=>{
 //     const product = await manager.getProducts();

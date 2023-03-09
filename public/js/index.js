@@ -15,7 +15,7 @@ socket.on("new-product", (data) => {
 socket.on("delete-product", (products) => {
   containerProducts.innerHTML = "";
   products.forEach((prod) => {
-    containerProducts.innerHTML +=`<li>                                       
+    containerProducts.innerHTML += `<li>                                       
                                        <p><b>${prod.title}</b></p>
                                        <p>Precio: $ ${prod.price}</p>
                                        <p>Descripción: ${prod.description}</p>
