@@ -6,12 +6,12 @@ viewsRouter.use(json());
 
 viewsRouter.get("/", async (req, res) => {
   const product = await manager.getProducts();
-  res.render("home", { layout: "main", product });
+  res.render("home", {product});
 });
 
 viewsRouter.get("/real-time-products", async (req, res) => {
   const product = await manager.getProducts();
-  res.render("home", { layout: "main", product });
+  res.render("real-time-products", {product});
 });
 
 export default viewsRouter;
