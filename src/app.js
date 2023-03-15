@@ -19,7 +19,7 @@ app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
 app.use(json());
-app.use(express.static(__dirname + "/../public"));
+app.use('static',express.static(__dirname + "/../public"));
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
