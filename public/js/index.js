@@ -1,5 +1,3 @@
-console.log("esta ok");
-
 const socket = io();
 
 const containerProducts = document.getElementById("containerProducts");
