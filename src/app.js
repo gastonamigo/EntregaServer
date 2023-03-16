@@ -19,7 +19,7 @@ app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
 app.use(json());
-app.use('static',express.static(__dirname + "/../public"));
+app.use('/static',express.static(__dirname + "/../public"));
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
@@ -33,6 +33,7 @@ const io = new Server(httpServer);
 io.on("connection", (socket) => {
   console.log("New client connected.");
 });
+
 
 app.use((req, res, next) => {
   req.io = io;

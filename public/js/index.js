@@ -1,6 +1,9 @@
+console.log("esta ok");
+
 const socket = io();
 
 const containerProducts = document.getElementById("containerProducts");
+
 
 socket.on("new-product", (data) => {
   containerProducts.innerHTML += `<li>
